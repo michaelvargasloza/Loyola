@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Loyola Web</string>
+
+    <string name="selected_item">Seleccione la facultad:</string>
+
+    <string-array name="Languages">
+        <item>SELECCIONE LA FACULTAD</item>
+        <item>CIENCIAS ECONÓMICAS</item>
+        <item>CIENCIAS NATURALES</item>
+        <item>CIENCIAS SOCIALES</item>
+        <item>CIENCIAS TECNOLÓGICAS</item>
+    </string-array>
+</resources>
