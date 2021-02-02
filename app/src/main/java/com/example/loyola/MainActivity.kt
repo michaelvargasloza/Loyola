@@ -1,56 +1,68 @@
 package com.example.loyola
 
+import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Spinner
+import android.os.Handler
 import android.widget.Toast
 
 
 class MainActivity : AppCompatActivity() {
+    private val DURACION_SPLASH = 2000
+
     override fun onCreate(savedInstanceState: Bundle?) {
-        Thread.sleep(2000);
-        setTheme(R.style.Loyola)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // access the items of the list
-        val facultad = resources.getStringArray(R.array.Languages)
+        if (!verificaConexion(this)) {
+            sinConexion()
+        } else {
+            conectado()
+        }
+    }
 
-        // access the spinner
-        val spinner = findViewById<Spinner>(R.id.spinner)
-        if (spinner != null) {
-            val adapter = ArrayAdapter(this,
-                android.R.layout.simple_spinner_item, facultad)
-            spinner.adapter = adapter
-
-            spinner.onItemSelectedListener = object :
-                AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(parent: AdapterView<*>,
-                                            view: View, position: Int, id: Long) {
-                    if (facultad[position] == "SELECCIONE LA FACULTAD") {
-                        Toast.makeText(
-                            this@MainActivity,
-                            facultad[position], Toast.LENGTH_SHORT
-                        ).show()
-                    }
-
-                    if (facultad[position] == "CIENCIAS ECONÓMICAS") {
-                        var i = Intent(this@MainActivity, Admin::class.java)
-                        // To pass any data to next activity
-                        //intent.putExtra("keyIdentifier", value)
-                        // start your next activity
-                        startActivity(i)
-                    }
-                }
-
-                override fun onNothingSelected(parent: AdapterView<*>) {
-                    // write code to perform some action
-                }
+    fun verificaConexion(ctx: Context): Boolean {
+        var bConectado = false
+        val connec = ctx
+            .getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
+        val redes = connec.allNetworkInfo
+        for (i in 0..1) {
+            if (redes[i].state == NetworkInfo.State.CONNECTED) {
+                bConectado = true
             }
+        }
+        return bConectado
+    }
+
+    fun sinConexion() {
+        try {
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Error")
+            builder.setIcon(android.R.drawable.ic_dialog_info)
+            builder.setMessage("No se ha podido conectar con el servidor, verifique su conexión a internet.")
+            builder.setPositiveButton(
+                "Aceptar"
+            ) { dialog, id -> finish() }
+            builder.create()
+            builder.show()
+        } catch (e: Exception) {
+            Toast.makeText(this, "Error: $e", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    fun conectado() {
+        try {
+            Handler().postDelayed({
+                val i = Intent(this@MainActivity, Facultad::class.java)
+                startActivity(i)
+                finish()
+            }, DURACION_SPLASH.toLong())
+        } catch (e: Exception) {
+            Toast.makeText(this, "Error: $e", Toast.LENGTH_SHORT).show()
         }
     }
 }

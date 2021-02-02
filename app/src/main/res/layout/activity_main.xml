@@ -6,23 +6,35 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_centerInParent="true"
+        app:srcCompat="@drawable/loyola_logo" />
+
     <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/linear_layout"
-        android:gravity = "center">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center">
 
-        <ImageView
-            android:id="@+id/imgLogo"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            app:srcCompat="@drawable/loyola_logo" />
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="20dp"
+            android:layout_height="20dp" />
 
-        <Spinner
-            android:id="@+id/spinner"
+        <TextView
+            android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/imgLogo"/>
+            android:layout_margin="2dp"
+            android:layout_weight="1"
+            android:text="@string/lbl_copyright"
+            android:textSize="16dp"
+            android:textStyle="bold"/>
     </LinearLayout>
 </RelativeLayout>

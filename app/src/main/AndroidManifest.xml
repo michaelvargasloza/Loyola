@@ -2,23 +2,36 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.loyola">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/loyola_logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/loyola_logo_round"
         android:supportsRtl="true"
-        android:theme="@style/Loyola">
-        <activity android:name=".Admin"></activity>
+        android:theme="@style/Theme.Loyola"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".CienciasEconomicas"
+            android:label="@string/title_activity_ciencias_economicas"
+            android:theme="@style/Theme.Loyola.NoActionBar"></activity>
+        <activity android:name=".WebViewNotas" />
+        <activity android:name=".Admin" />
         <activity
             android:name=".MainActivity"
-            android:theme="@style/SplashTheme">
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Loyola.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".Facultad"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
